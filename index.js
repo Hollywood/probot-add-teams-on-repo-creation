@@ -1,10 +1,9 @@
-module.exports = (robot) => {
-  // Your code here
-  robot.log('Yay, the app was loaded!')
+var AddTeamsOnRepoCreation = require('./lib/add-teams-on-repo-creation')
 
-  // For more information on building apps:
-  // https://probot.github.io/docs/
-
-  // To get your app running against GitHub, see:
-  // https://probot.github.io/docs/development/
+function addTeamsOnRepoCreation (robot) {
+  robot.on('repository.created', async context => {
+    return AddTeamsOnRepoCreation.analyze(context.github, context.repo(), context.payload, robot.log)
+  })
 }
+
+module.exports = addTeamsOnRepoCreation
