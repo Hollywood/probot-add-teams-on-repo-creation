@@ -13,6 +13,38 @@ Please note that this app is meant to demonstrate the functional capabilities of
 - Read the in-line documentation explaining the functionality of the app
 - Customize the implementation to fit your needs
 
+## Configuration
+Under the current implementation, there are several configurable attributes. Defaults for these attributes can be set in the [defaults.js](./lib/defaults.js) file, but it is recommended that each org in which this is implemented creates an override file with a file called `.github/add-team-on-repo-creation.yml` file in the Repository, `org-settings`. This Repository will contain global settings for the Organization. You can name the settings repository anything you'd like; just add the repository name to your defaults.js file.
+
+```yml
+# Configuration for Create Issue Upon Repo Creation
+
+
+# Enables addition of a team when a new repository is created
+enableTeamAddition: true
+
+# Issue Title when a team is given access
+teamsAddedIssueTitle: 'Team given read access'
+
+# Issue Body when a team is given access
+teamsAddedIssueBody: 'The following team has been given read access to this repository:'
+
+# Issue Title when a team has not been given access due to the repository creator's exempt status
+exemptTeamIssueTitle: 'No default team added'
+
+# Issue Body when a team has not been given access due to the repository creator's exempt status
+exemptTeamIssueBody: 'Normally, a default team is given read access to this repository. However, the repository creator is a member of the following exempt team, and therefore no default access has been given.'
+
+# The name of the team to add when a repository is created
+teamNameToAdd: 'test_team'
+
+# The name of the team that is exempt from having team access granted upon repository creation
+exemptTeamName: 'admin',
+
+# Users/Groups that should be cc'ed on the issue. Should be users/groups separated by a space.
+# ccList: '@user123 @user456'
+```
+
 ## Deployment
 
 Probot is a standard NodeJS app, and thus can be deployed as such. [Documentation](https://probot.github.io/docs/deployment) is available on the Probot website, which provides directions for deployment using Glitch, Heroku, and Now.
